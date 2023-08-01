@@ -1,21 +1,31 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import { CitySearchComponent } from './city-search.component';
+interface City {
+  cityName: string;
+}
 
-describe('CitySearchComponent', () => {
-  let component: CitySearchComponent;
-  let fixture: ComponentFixture<CitySearchComponent>;
+@Component({
+  selector: 'app-city-search',
+  templateUrl: './city-search.component.html',
+  styleUrls: ['./city-search.component.scss']
+})
+export class CitySearchComponent {
+  cities: City[] = [];
+  filteredCities: City[] = [];
+  searchText: string = '';
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [CitySearchComponent]
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.http.get<City[]>('assets/cities.json').subscribe((data) => {
+      this.cities = data;
     });
-    fixture = TestBed.createComponent(CitySearchComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  onSubmit(): void {
+    this.filteredCities = this.cities.filter(city =>
+      city.cityName.toLowerCase().includes(this.searchText.toLowerCase())
+    ).slice(0, 5); // Limit to 5 results
+  }
+}
