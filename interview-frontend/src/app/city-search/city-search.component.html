@@ -1,1 +1,14 @@
-<p>city-search works!</p>
+<div class="container w-75 pt-5">
+  <h1 class="text-center pb-2">My City Search Form</h1>
+
+  <form (submit)="onSubmit()" class="d-flex">
+    <div class="form-group flex-grow-1">
+      <input type="text" [(ngModel)]="searchText" name="searchText" class="form-control rounded-0" placeholder="Enter city name">
+    </div>
+    <button type="submit" class="btn btn-primary rounded-0">Search</button>
+  </form>
+
+  <ul class="list-group mt-3 border-0">
+    <li class="list-group-item border-0 border-bottom rounded-0" *ngFor="let city of filteredCities">{{ city.cityName }}</li>
+  </ul>
+</div>

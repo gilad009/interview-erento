@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-@Component({
-  selector: 'app-city-search',
-  templateUrl: './city-search.component.html',
-  styleUrls: ['./city-search.component.scss']
-})
-export class CitySearchComponent {
+import { CitySearchComponent } from './city-search.component';
 
-}
+describe('CitySearchComponent', () => {
+  let component: CitySearchComponent;
+  let fixture: ComponentFixture<CitySearchComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [CitySearchComponent]
+    });
+    fixture = TestBed.createComponent(CitySearchComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
